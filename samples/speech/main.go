@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	kakaoapi "github.com/meinside/kakao-api-go"
+	kakaoapi "github.com/roharon/kakao-api-go"
 )
 
 /*

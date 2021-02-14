@@ -23,6 +23,7 @@ const (
 	APIBaseURL    = "https://dapi.kakao.com"
 	APINewtoneURL = "https://kakaoi-newtone-openapi.kakao.com"
 	APICVURL      = "https://cv-api.kakaobrain.com"
+	APIKakaoURL   = "https://kapi.kakao.com"
 )
 
 // Client struct
@@ -51,6 +52,11 @@ func NewClient(apiKey string) *Client {
 		},
 		Verbose: false,
 	}
+}
+
+// Get Client
+func (c *Client) GetClient() *http.Client {
+	return c.httpClient
 }
 
 // HTTP functions
