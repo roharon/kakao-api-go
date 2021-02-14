@@ -1,4 +1,6 @@
 # Kakao REST API wrapper for Golang
+![Build status](https://github.com/roharon/kakao-api-go/workflows/build-test/badge.svg)
+
 
 This is a wrapper library for [Kakao API](https://developers.kakao.com/docs) written in Golang.
 Based on [meinside/kakao-api-go](https://github.com/meinside/kakao-api-go)
@@ -37,10 +39,10 @@ See the [samples here](https://github.com/roharon/kakao-api-go/tree/master/sampl
 ## API coverages
 
 - [ ] [KakaoLogin](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api)
-- [ ] [UserManagement](https://developers.kakao.com/docs/latest/ko/user-mgmt/rest-api)
+- [X] [KakaotalkSocial](https://developers.kakao.com/docs/latest/ko/kakaotalk-social/rest-api), last update: 2021.02.
 - [ ] [Message](https://developers.kakao.com/docs/latest/ko/message/rest-api)
 - [ ] [KakaoStory](https://developers.kakao.com/docs/latest/ko/kakaostory/rest-api)
-- [ ] [KakaoTalkChannel](https://developers.kakao.com/docs/latest/ko/kakaotalk-channel/common)
+- [ ] [KakaoTalkChannel](https://developers.kakao.com/docs/latest/ko/kakaotalk-channel/rest-api)
 - [ ] [KakaoSync](https://developers.kakao.com/docs/latest/ko/kakaosync/common)
 - [ ] [KakaoPay](https://developers.kakao.com/docs/latest/ko/kakaopay/common)
 - [ ] [KakaoMoment](https://developers.kakao.com/docs/latest/ko/kakaomoment/common)
@@ -53,6 +55,7 @@ See the [samples here](https://github.com/roharon/kakao-api-go/tree/master/sampl
 - [X] [Pose](https://developers.kakao.com/docs/latest/ko/pose/dev-guide), last update: 2020.06.
 - [X] [Translation](https://developers.kakao.com/docs/latest/ko/translate/dev-guide), last update: 2020.08.
 - [X] [Speech](https://developers.kakao.com/docs/latest/ko/voice/rest-api), last update: 2020.06.
+
 
 ## License
 
