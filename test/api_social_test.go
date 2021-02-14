@@ -12,10 +12,52 @@ import (
 )
 
 const (
-	user1Uuid  string = "abcdefg0002"
-	user2Image string = "https://xxx.kakao.co.kr/.../bbb.jpg"
-	totalCount int    = 11
+	nickName     string = "개발자"
+	thumbnailUrl string = "https://xxx.kakao.co.kr/.../aaa.jpg"
+	user1Uuid    string = "abcdefg0002"
+	user2Image   string = "https://xxx.kakao.co.kr/.../bbb.jpg"
+	totalCount   int    = 11
 )
+
+func TestApiSocialProfile(t *testing.T) {
+	client := kakaoapi.NewClient("abcdefg")
+
+	httpmock.ActivateNonDefault(client.GetClient())
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", kakaoapi.APIKakaoURL+kakaoapi.ApiGetProfile,
+		func(req *http.Request) (*http.Response, error) {
+			json_str := fmt.Sprintf(`
+			{
+				"nickName":"%s",
+				"profileImageURL":"https://xxx.kakao.co.kr/.../aaa.jpg",
+				"thumbnailURL":"%s",
+				"countryISO":"KR"
+			}`, nickName, thumbnailUrl)
+
+			data := make(map[string]interface{})
+			err := json.Unmarshal([]byte(json_str), &data)
+
+			if err != nil {
+				t.Log(err)
+			}
+			resp, err := httpmock.NewJsonResponse(200, data)
+
+			if err != nil {
+				return httpmock.NewStringResponse(500, ""), nil
+			}
+			return resp, nil
+		},
+	)
+
+	res, err := client.GetProfile()
+	if err != nil {
+		t.Error(err)
+	} else {
+		assertEqual(t, res.NickName, nickName, "")
+		assertEqual(t, res.ThumbNailUrl, thumbnailUrl, "")
+	}
+}
 
 func TestApiSocialFriends(t *testing.T) {
 	client := kakaoapi.NewClient("abcdefg")
@@ -69,8 +111,6 @@ func TestApiSocialFriends(t *testing.T) {
 			return resp, nil
 		},
 	)
-
-	t.Log("---")
 
 	res, err := client.GetFriends(0, 3, api_social.Asc, api_social.Favorite)
 	if err != nil {
