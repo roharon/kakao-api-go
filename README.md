@@ -1,11 +1,12 @@
 # Kakao REST API wrapper for Golang
 
 This is a wrapper library for [Kakao API](https://developers.kakao.com/docs) written in Golang.
+Based on [meinside/kakao-api-go](https://github.com/meinside/kakao-api-go)
 
 ## How to get
 
 ```bash
-$ go get -u github.com/meinside/kakao-api-go
+$ go get -u github.com/roharon/kakao-api-go
 ```
 
 ## How to use
@@ -15,7 +16,7 @@ $ go get -u github.com/meinside/kakao-api-go
 package main
 
 import (
-	kakaoapi "github.com/meinside/kakao-api-go"
+	kakaoapi "github.com/roharon/kakao-api-go"
 )
 
 const (
@@ -31,7 +32,7 @@ func main() {
 }
 ```
 
-See the [samples here](https://github.com/meinside/kakao-api-go/tree/master/samples).
+See the [samples here](https://github.com/roharon/kakao-api-go/tree/master/samples).
 
 ## API coverages
 
