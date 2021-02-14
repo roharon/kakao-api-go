@@ -54,6 +54,11 @@ func NewClient(apiKey string) *Client {
 	}
 }
 
+// Get Client
+func (c *Client) GetClient() *http.Client {
+	return c.httpClient
+}
+
 // HTTP functions
 
 // HTTP GET
