@@ -1,0 +1,43 @@
+name: build-test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, ubuntu-20.04]
+        go: [^1.14, ^1.15]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: |
+        go get -v -t -d ./...
+        if [ -f Gopkg.toml ]; then
+            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+            dep ensure
+        fi
+
+    - uses: actions/setup-go@v2
+      name: Set up Go
+      with:
+        go-version: ${{ matrix.go }}
+
+
+  test:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+        go: [^1.15]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run coverage
+      run: go test ./... -race -coverprofile=coverage.txt -covermode=atomic
+ 
