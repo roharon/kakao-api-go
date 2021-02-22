@@ -1,13 +1,7 @@
 package api_message
 
-type TemplateObject struct {
-	ObjectType  string   `json:"object_type"`
-	ButtonTitle string   `json:"button_title"`
-	Buttons     []Button `json:"buttons"`
-}
-
 type RequestApiMessageMe struct {
-	TemplateObject TemplateObject `json:"template_object"`
+	TemplateObject map[string]interface{} `json:"template_object"`
 }
 
 type RequestApiMessageMeWithUrl struct {
@@ -62,34 +56,44 @@ type Commerce struct {
 }
 
 type FeedObject struct {
-	TemplateObject
-	Content Content `json:"content"`
-	Social  Social  `json:"social"`
+	ObjectType  string   `json:"object_type" default:"feed"`
+	ButtonTitle string   `json:"button_title"`
+	Buttons     []Button `json:"buttons"`
+	Content     Content  `json:"content"`
+	Social      Social   `json:"social"`
 }
 
 type ListObject struct {
-	TemplateObject
+	ObjectType  string    `json:"object_type" default:"list"`
+	ButtonTitle string    `json:"button_title"`
+	Buttons     []Button  `json:"buttons"`
 	HeaderTitle string    `json:"header_title"`
 	HeaderLink  Link      `json:"header_link"`
 	Contents    []Content `json:"contents"`
 }
 
 type LocationObject struct {
-	TemplateObject
-	Address      string  `json:"address"`
-	AddressTitle string  `json:"address_title"`
-	Content      Content `json:"content"`
-	Social       Social  `json:"social"`
+	ObjectType   string   `json:"object_type" default:"location"`
+	ButtonTitle  string   `json:"button_title"`
+	Buttons      []Button `json:"buttons"`
+	Address      string   `json:"address"`
+	AddressTitle string   `json:"address_title"`
+	Content      Content  `json:"content"`
+	Social       Social   `json:"social"`
 }
 
 type CommerceObject struct {
-	TemplateObject
-	Content  Content  `json:"content"`
-	Commerce Commerce `json:"commerce"`
+	ObjectType  string   `json:"object_type" default:"commerce"`
+	ButtonTitle string   `json:"button_title"`
+	Buttons     []Button `json:"buttons"`
+	Content     Content  `json:"content"`
+	Commerce    Commerce `json:"commerce"`
 }
 
 type TextObject struct {
-	TemplateObject
-	Text string `json:"text"`
-	Link Link   `json:"link"`
+	ObjectType  string   `json:"object_type" default:"text"`
+	ButtonTitle string   `json:"button_title"`
+	Buttons     []Button `json:"buttons"`
+	Text        string   `json:"text"`
+	Link        Link     `json:"link"`
 }
