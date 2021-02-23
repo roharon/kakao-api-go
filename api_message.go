@@ -49,3 +49,40 @@ func (c *Client) SendMe(request interface{}) (message.ResponseApiMessageMe, erro
 
 	return response, nil
 }
+
+// Send Scrap Message to me
+//
+// https://developers.kakao.com/docs/latest/ko/message/rest-api#send-me-with-url
+func (c *Client) SendMeWithUrl(requestUrl string, templateId string, templateArgs interface{}) (message.ResponseApiMessageMe, error) {
+	var requestInerface map[string]interface{}
+
+	request := message.RequestApiMessageMeWithUrl{
+		RequestUrl:   requestUrl,
+		TemplateId:   templateId,
+		TemplateArgs: templateArgs,
+	}
+
+	params, err := json.Marshal(request)
+	if err != nil {
+		log.Printf("* Failed to encode struct: %s", err)
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	if err := json.Unmarshal(params, &requestInerface); err != nil {
+		log.Printf("* Failed to decode struct to interface: %s", err)
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	bytes, err := c.post(APIKakaoURL+ApiSendMeWithUrl, authTypeBearer, nil, requestInerface)
+	if err != nil {
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	response := message.ResponseApiMessageMe{}
+	if err := json.Unmarshal(bytes, &response); err != nil {
+		log.Printf("* Failed to decode bytes: %s", string(bytes))
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	return response, nil
+}

@@ -2,15 +2,19 @@ package main
 
 import (
 	"log"
+	"os"
 
 	kakaoapi "github.com/roharon/kakao-api-go"
 	msg "github.com/roharon/kakao-api-go/schema/api_message"
 )
 
-const WEB_URL = "https://google.com"
+const (
+	WEB_URL = "https://google.com"
+)
 
 func main() {
-	client := kakaoapi.NewClient("<ACCESS TOKEN>")
+	apiKey := os.Getenv("apiKey")
+	client := kakaoapi.NewClient(apiKey)
 
 	// Feed Object
 	data := msg.NewTemplateObject(msg.FeedType).(msg.FeedObject)
@@ -34,6 +38,12 @@ func main() {
 	if err != nil {
 		log.Print(err)
 	}
+	log.Print(res)
 
+	// SendMeWithUrl example
+	res, err = client.SendMeWithUrl("https://github.com/roharon/kakao-api-go", "", "")
+	if err != nil {
+		log.Print(err)
+	}
 	log.Print(res)
 }

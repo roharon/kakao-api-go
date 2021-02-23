@@ -15,9 +15,9 @@ type RequestApiMessageMe struct {
 }
 
 type RequestApiMessageMeWithUrl struct {
-	RequestUrl   string                 `json:"request_url"`
-	TemplateId   string                 `json:"template_id"`
-	TemplateArgs map[string]interface{} `json:"template_args"`
+	RequestUrl   string      `json:"request_url"`
+	TemplateId   string      `json:"template_id"`
+	TemplateArgs interface{} `json:"template_args"`
 }
 
 type ResponseApiMessageMe struct {
