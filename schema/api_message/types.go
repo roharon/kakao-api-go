@@ -15,13 +15,29 @@ type RequestApiMessageMe struct {
 }
 
 type RequestApiMessageMeWithUrl struct {
-	RequestUrl   string      `json:"request_url"`
-	TemplateId   string      `json:"template_id"`
-	TemplateArgs interface{} `json:"template_args"`
+	RequestUrl   string            `json:"request_url"`
+	TemplateId   string            `json:"template_id"`
+	TemplateArgs TemplateArguments `json:"template_args"`
+}
+
+type RequestApiMessageWithTemplateId struct {
+	TemplateId   string            `json:"template_id"`
+	TemplateArgs TemplateArguments `json:"template_args"`
 }
 
 type ResponseApiMessageMe struct {
 	ResultCode int `json:"result_code"`
+}
+
+type TemplateArguments struct {
+	ScrapImage         string `json:"${SCRAP_IMAGE}"`
+	ScrapImageWidth    string `json:"${SCRAP_IMAGE_WIDTH}"`
+	ScrapImageHeight   string `json:"${SCRAP_IMAGE_HEIGHT}"`
+	ScrapImageDuration string `json:"${SCRAP_IMAGE_DURATION}"`
+	ScrapTitle         string `json:"${SCRAP_TITLE}"`
+	ScrapDescription   string `json:"${SCRAP_DESCRIPTION}"`
+	ScrapHost          string `json:"${SCRAP_HOST}"`
+	ScrapRequestedUrl  string `json:"${SCRAP_REQUESTED_URL}"`
 }
 
 type Content struct {

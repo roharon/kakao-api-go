@@ -56,10 +56,14 @@ func (c *Client) SendMe(request interface{}) (message.ResponseApiMessageMe, erro
 func (c *Client) SendMeWithUrl(requestUrl string, templateId string, templateArgs interface{}) (message.ResponseApiMessageMe, error) {
 	var requestInerface map[string]interface{}
 
+	if templateArgs == "" {
+		templateArgs = message.TemplateArguments{}
+	}
+
 	request := message.RequestApiMessageMeWithUrl{
 		RequestUrl:   requestUrl,
 		TemplateId:   templateId,
-		TemplateArgs: templateArgs,
+		TemplateArgs: templateArgs.(message.TemplateArguments),
 	}
 
 	params, err := json.Marshal(request)
@@ -74,6 +78,46 @@ func (c *Client) SendMeWithUrl(requestUrl string, templateId string, templateArg
 	}
 
 	bytes, err := c.post(APIKakaoURL+ApiSendMeWithUrl, authTypeBearer, nil, requestInerface)
+	if err != nil {
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	response := message.ResponseApiMessageMe{}
+	if err := json.Unmarshal(bytes, &response); err != nil {
+		log.Printf("* Failed to decode bytes: %s", string(bytes))
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	return response, nil
+}
+
+// Send Template Message to me
+//
+// /developers.kakao.com/docs/latest/ko/message/rest-api#send-me-with-template-id
+func (c *Client) SendMeWithTemplateId(templateId string, templateArgs interface{}) (message.ResponseApiMessageMe, error) {
+	var requestInterface map[string]interface{}
+
+	if templateArgs == "" {
+		templateArgs = message.TemplateArguments{}
+	}
+
+	request := message.RequestApiMessageWithTemplateId{
+		TemplateId:   templateId,
+		TemplateArgs: templateArgs.(message.TemplateArguments),
+	}
+
+	params, err := json.Marshal(request)
+	if err != nil {
+		log.Printf("* Failed to encode struct: %s", err)
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	if err := json.Unmarshal(params, &requestInterface); err != nil {
+		log.Printf("* Failed to decode struct to interface: %s", err)
+		return message.ResponseApiMessageMe{}, err
+	}
+
+	bytes, err := c.post(APIKakaoURL+ApiSendMeWithTemplateId, authTypeBearer, nil, requestInterface)
 	if err != nil {
 		return message.ResponseApiMessageMe{}, err
 	}

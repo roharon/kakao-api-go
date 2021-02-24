@@ -46,4 +46,13 @@ func main() {
 		log.Print(err)
 	}
 	log.Print(res)
+
+	// SendMeWithTemplateId
+	res, err = client.SendMeWithTemplateId("48292", msg.TemplateArguments{})
+	// Possible to client.SendMeWithTemplateId("48292", "")
+
+	if err != nil {
+		log.Print(err)
+	}
+	log.Print(res)
 }
