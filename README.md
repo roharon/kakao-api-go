@@ -1,6 +1,6 @@
 # Kakao REST API wrapper for Golang
 ![Build status](https://github.com/roharon/kakao-api-go/workflows/build-test/badge.svg)
-
+[![Go Reference](https://pkg.go.dev/badge/github.com/roharon/kakao-api-go.svg)](https://pkg.go.dev/github.com/roharon/kakao-api-go)
 
 This is a wrapper library for [Kakao API](https://developers.kakao.com/docs) written in Golang.
 Based on [meinside/kakao-api-go](https://github.com/meinside/kakao-api-go)
